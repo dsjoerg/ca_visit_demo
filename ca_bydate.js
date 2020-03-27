@@ -28,18 +28,11 @@ function populateSelect(selectElement, stringList) {
   });
 }
 
-function cleanLocType(string) {
-  if (string == "Cafￃﾩs") {
-    return "Cafes";
-  }
-  return string;
-}
-
 function parsingDone(results, file) {
 //  console.log("Parsing complete:", results, file);
   fileData = _.map(results.data.slice(1), function (row) {
     var county = row[1];
-    var location_type = cleanLocType(row[3]);
+    var location_type = row[3];
     var date = row[0];
     counties.push(county);
     locationTypes.push(location_type);
@@ -62,12 +55,13 @@ function parsingDone(results, file) {
       {title:"% of Usual Visits", field:"visit_index"},
 //      {title:"Age Group", field:"agegroup"},
       {title:"County", field:"county"},
+      {title:"Date", field:"date"},
 //      {title:"State", field:"state"},
     ],
     height:"600px",
     layout:"fitColumns",
     initialSort:[
-      {column:"visit_index", dir:"desc"}
+      {column:"date", dir:"asc"}
     ],
 //    pagination: "local",
   });
@@ -91,4 +85,4 @@ function parsingDone(results, file) {
   _.each([countySel, locationTypeSel], function(sel) { sel.addEventListener('change', redoFilter); });
 }
 
-Papa.parse('rawcats_0321.csv', {download: true, complete: parsingDone});
+Papa.parse('rawcats.csv', {download: true, complete: parsingDone});
