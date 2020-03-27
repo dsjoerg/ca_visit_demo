@@ -38,7 +38,8 @@ function parsingDone(results, file) {
       {title:"County", field:"county"},
 //      {title:"State", field:"state"},
     ],
-    height:"400px",
+    height:"600px",
+    layout:"fitColumns",
     initialSort:[
       {column:"visit_index", dir:"desc"}
     ],
