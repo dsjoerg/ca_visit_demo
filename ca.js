@@ -17,12 +17,13 @@ function redoFilter() {
 function parsingDone(results, file) {
 //  console.log("Parsing complete:", results, file);
   fileData = _.map(results.data.slice(1), function (row) {
-    counties.push(row[4]);
-    return {location_type: row[0],
-            visit_index: row[1],
-            agegroup: row[2],
-            state: row[3],
-            county: row[4]
+    var county = row[1];
+    counties.push(county);
+    return {location_type: row[3],
+            visit_index: row[4],
+//            agegroup: row[2],
+//            state: row[3],
+            county: county
            };
   });
 
@@ -33,9 +34,9 @@ function parsingDone(results, file) {
     columns:[
       {title:"Location Type", field:"location_type"},
       {title:"% of Usual Visits", field:"visit_index"},
-      {title:"Age Group", field:"agegroup"},
+//      {title:"Age Group", field:"agegroup"},
       {title:"County", field:"county"},
-      {title:"State", field:"state"},
+//      {title:"State", field:"state"},
     ],
     height:"400px",
     initialSort:[
@@ -52,19 +53,19 @@ function parsingDone(results, file) {
     countySel.add(option1);
   });
 
-  ageGroupSel = document.getElementById('agegroup-select');
-  option1 = document.createElement("option");
-  option1.value = "Over 65";
-  option1.text = "Over 65";
-  ageGroupSel.add(option1);
-  option1 = document.createElement("option");
-  option1.value = "Under 65";
-  option1.text = "Under 65";
-  ageGroupSel.add(option1);
+  // ageGroupSel = document.getElementById('agegroup-select');
+  // option1 = document.createElement("option");
+  // option1.value = "Over 65";
+  // option1.text = "Over 65";
+  // ageGroupSel.add(option1);
+  // option1 = document.createElement("option");
+  // option1.value = "Under 65";
+  // option1.text = "Under 65";
+  // ageGroupSel.add(option1);
 
 
   countySel.addEventListener('change', redoFilter);
   ageGroupSel.addEventListener('change', redoFilter);
 }
 
-Papa.parse('visitsFake.csv', {download: true, complete: parsingDone});
+Papa.parse('rawcats_0321.csv', {download: true, complete: parsingDone});
